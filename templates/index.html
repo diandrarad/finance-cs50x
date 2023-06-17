@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block main %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col" class="text-start">Symbol</th>
+                <th scope="col" class="text-start">Name</th>
+                <th scope="col">Shares</th>
+                <th scope="col">Price</th>
+                <th scope="col">Total</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stock in stocks %}
+                <tr class="table-info">
+                    <th scope="row" class="text-start">{{ stock["symbol"] }}</th>
+                    <td class="text-start">{{ stock["name"] }}</td>
+                    <td>{{ stock["shares"] }}</td>
+                    <td class="text-end">{{ stock["price"] }}</td>
+                    <td class="text-end">{{ stock["total"] }}</td>
+
+                    <td class="text-end">
+                        <form id="buy-sell-form-{{ stock['symbol'] }}" method="post">
+                            <input type="hidden" name="symbol" value="{{ stock['symbol'] }}">
+                            <div class="input-group">
+                                <select class="form-select form-select-sm col-auto"" style="width: 1%;" name="action" id="buy-sell-select-{{ stock['symbol'] }}">
+                                    <option value="buy">Buy</option>
+                                    <option value="sell">Sell</option>
+                                </select>
+                                <input type="number" min="1" class="col-auto form-control form-control-sm text-center" name="shares" placeholder="     Shares">
+                                <div class="input-group-append" style="margin-left: 5px;">
+                                    <button type="button" class="btn btn-primary btn-sm" style="" onclick="submitBuySellForm('{{ stock['symbol'] }}')">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td class="border-0 fw-bold text-end" colspan="4">Cash</td>
+                <td class="border-0 text-end">{{ cash }}</td>
+            </tr>
+            <tr>
+                <td class="border-0 fw-bold text-end" colspan="4">Total</td>
+                <td class="border-0 text-end">{{ total }}</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <script>
+        function submitBuySellForm(symbol) {
+            var action = document.getElementById("buy-sell-select-" + symbol).value;
+            var form = document.getElementById("buy-sell-form-" + symbol);
+            if (action == "buy") {
+                form.action = "/buy";
+            } else  {
+                form.action = "/sell";
+            }
+            form.submit();
+        }
+    </script>
+
+{% endblock %}
+
