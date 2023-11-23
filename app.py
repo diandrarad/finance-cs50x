@@ -11,23 +11,17 @@ from helpers import apology, login_required, lookup, usd
 
 # Configure application
 app = Flask(__name__)
-app.secret_key = 'secret.token_hex(16)'
 
 # Custom filter
 app.jinja_env.filters["usd"] = usd
 
 # Configure session to use filesystem (instead of signed cookies)
-app.config["SESSION_FILE_DIR"] = mkdtemp()
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Configure CS50 Library to use SQLite database
 db = SQL("sqlite:///finance.db")
-
-# Make sure API key is set
-if not os.environ.get("API_KEY"):
-    raise RuntimeError("API_KEY not set")
 
 
 @app.after_request
