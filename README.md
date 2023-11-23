@@ -3,6 +3,10 @@
 ## Description
 C$50 Stock Trader is a web application built using Flask, Python, HTML, JavaScript, Bootstrap, and Bootswatch. It allows users to "buy" and "sell" stocks, look up stock prices, view transaction history, and manage their portfolio. This application serves as a practical implementation of concepts learned in the CS50 course.
 
+## Screenshot
+
+![Screenshot](static/screenshot.png)
+
 ## Technologies Used
 - Flask: A lightweight web framework used to handle routing, rendering templates, and processing user requests.
 - Python: The programming language used to develop the backend logic and interact with the database.
